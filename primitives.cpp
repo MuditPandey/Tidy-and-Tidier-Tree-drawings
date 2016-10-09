@@ -4,8 +4,12 @@
 #include <GL/GL.h>
 #include <GL/glut.h>
 
+/*! Draws a pixel using OpenGL
+*/
 void draw_pixel(GLint x, GLint y)
 {
+	glColor3f(1.0, 0.0, 0.0);
+	glPointSize(2.0);
 	glBegin(GL_POINTS);
 	glVertex2i(x, 480 - y);
 	glEnd();
@@ -59,7 +63,7 @@ void draw_line2(int x1, int y1, int x2, int y2)
 		draw_pixel(x, y);
 	}
 }
-
+/*! Bresenham Algorithm for drawing line*/
 void line(int x1, int y1, int x2, int y2)
 {
 	if ((x2 >= x1) && (y2 >= y1))
@@ -81,7 +85,7 @@ void line(int x1, int y1, int x2, int y2)
 }
 void primitives::draw_line(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	line(x1, y1,x2,y2);
 	//draw_pixel(10, 10);
 	glFlush();
@@ -98,7 +102,7 @@ void plot_circle(int x, int y, int cx, int cy)
 	draw_pixel(cx + y, cy - x);
 	draw_pixel(cx - y, cy - x);
 }
-
+/*! Mid-point algorithm*/
 void circle(int cx, int cy, int r)
 {
 	int x = 0;
@@ -126,14 +130,14 @@ void circle(int cx, int cy, int r)
 		plot_circle(x, y, cx, cy);
 	}
 }
-
+/*!This function draws the circle*/
 void primitives::draw_circle(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	circle(cx, cy, radius);
 	glFlush();
 }
-
+/*! This function sets the object to be used as a line between two points(given their x,y coordinates) */
 void primitives::use_as_line(int sx1, int sy1, int sx2, int sy2)
 {
 	x1 = sx1;
@@ -144,6 +148,7 @@ void primitives::use_as_line(int sx1, int sy1, int sx2, int sy2)
 	cy = 0;
 	radius = 0;
 }
+/*! This function sets the object to be used as a circle with center coordinates and radius*/
 void primitives::use_as_circle(int scx, int scy, int sradius)
 {
 	cx = scx;
